@@ -20,7 +20,7 @@ def lambda_handler(event, context):
         # Initialize the CloudWatch Logs client
         client = boto3.client('logs', region_name='ap-southeast-1')  # Change the region as needed
 
-        query_string = f'fields @timestamp, @message | filter level = "info" | filter ACTION like /{query}/ or MESSAGE like /query/ | sort @timestamp desc | limit 100'
+        query_string = f'fields @timestamp, @message | filter level = "info" | filter ACTION like /{query}/ or MESSAGE like /{query}/ or ACTOR like /{query}/ | sort @timestamp desc | limit 100'
         response = client.start_query(
             logGroupNames=services,
             startTime=start,
